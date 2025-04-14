@@ -1,0 +1,38 @@
+USE house_rental;
+
+-- 房源表
+CREATE TABLE IF NOT EXISTS house (
+    id BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+    title VARCHAR(100) NOT NULL COMMENT '标题',
+    description TEXT COMMENT '描述',
+    area DECIMAL(10,2) NOT NULL COMMENT '面积（平方米）',
+    price DECIMAL(10,2) NOT NULL COMMENT '租金（元/月）',
+    deposit DECIMAL(10,2) COMMENT '押金（元）',
+    room_count TINYINT NOT NULL COMMENT '房间数',
+    hall_count TINYINT NOT NULL COMMENT '厅室数',
+    bathroom_count TINYINT NOT NULL COMMENT '卫生间数',
+    floor INT NOT NULL COMMENT '所在楼层',
+    total_floor INT NOT NULL COMMENT '总楼层',
+    has_elevator TINYINT NOT NULL DEFAULT 0 COMMENT '是否有电梯：0-否，1-是',
+    orientation VARCHAR(20) NOT NULL COMMENT '朝向',
+    decoration VARCHAR(20) NOT NULL COMMENT '装修情况',
+    facilities VARCHAR(255) COMMENT '配套设施，JSON格式',
+    images TEXT COMMENT '图片URL，JSON格式',
+    province VARCHAR(50) NOT NULL COMMENT '省份',
+    city VARCHAR(50) NOT NULL COMMENT '城市',
+    district VARCHAR(50) NOT NULL COMMENT '区县',
+    address VARCHAR(255) NOT NULL COMMENT '详细地址',
+    latitude DECIMAL(10,6) COMMENT '纬度',
+    longitude DECIMAL(10,6) COMMENT '经度',
+    owner_id BIGINT NOT NULL COMMENT '房东ID',
+    contact_name VARCHAR(50) NOT NULL COMMENT '联系人',
+    contact_phone VARCHAR(20) NOT NULL COMMENT '联系电话',
+    status TINYINT NOT NULL DEFAULT 1 COMMENT '状态：0-下架，1-上架，2-已出租',
+    created_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    updated_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除：0-否，1-是',
+    PRIMARY KEY (id),
+    KEY idx_owner (owner_id),
+    KEY idx_status (status),
+    KEY idx_location (province, city, district)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='房源表'; 

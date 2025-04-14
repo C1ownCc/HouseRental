@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS message (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '消息ID',
+    user_id BIGINT NOT NULL COMMENT '用户ID',
+    title VARCHAR(100) NOT NULL COMMENT '消息标题',
+    content TEXT NOT NULL COMMENT '消息内容',
+    type TINYINT NOT NULL DEFAULT 0 COMMENT '消息类型：0-系统消息，1-预约消息，2-收藏消息',
+    status TINYINT NOT NULL DEFAULT 0 COMMENT '消息状态：0-未读，1-已读',
+    create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除：0-未删除，1-已删除',
+    INDEX idx_user_id (user_id),
+    INDEX idx_create_time (create_time)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='消息表'; 

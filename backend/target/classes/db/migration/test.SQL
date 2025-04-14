@@ -1,0 +1,2 @@
+ALTER TABLE message
+    ADD COLUMN status TINYINT NOT NULL DEFAULT 0 COMMENT '消息状态：0-未读，1-已读' AFTER type;
