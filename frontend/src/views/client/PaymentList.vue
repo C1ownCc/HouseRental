@@ -201,7 +201,7 @@ const getPaymentList = async () => {
     })
     
     if (res.code === 200) {
-      paymentList.value = res.data.records
+      paymentList.value = res.data
       total.value = res.data.total
     } else {
       ElMessage.error(res.message || '获取支付记录失败')

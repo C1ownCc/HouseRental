@@ -127,43 +127,39 @@ const sortedHouseList = computed(() => {
   }
 })
 
-// 初始化百度地图
-const initMap = () => {
-  // 创建地图实例
-  map.value = new BMap.Map('map-house')
-  
-  // 创建点坐标
-  const point = new BMap.Point(116.404, 39.915) // 默认北京市中心
-  
-  // 初始化地图，设置中心点坐标和地图级别
-  map.value.centerAndZoom(point, 12)
-  
-  // 开启鼠标滚轮缩放
-  map.value.enableScrollWheelZoom(true)
-  
-  // 添加地图控件
-  map.value.addControl(new BMap.NavigationControl())
-  map.value.addControl(new BMap.ScaleControl())
-  
-  // 添加地图事件监听
-  map.value.addEventListener('dragend', handleMapChange)
-  map.value.addEventListener('zoomend', handleMapChange)
-}
-
 // 处理地图视野变化
 const handleMapChange = () => {
-  // 获取当前地图视野范围
-  const bounds = map.value.getBounds()
-  const sw = bounds.getSouthWest()
-  const ne = bounds.getNorthEast()
-  
-  // 根据视野范围获取房源
-  loadHouseList({
-    swLat: sw.lat,
-    swLng: sw.lng,
-    neLat: ne.lat,
-    neLng: ne.lng
-  })
+  try {
+    // 确保地图实例已创建
+    if (!map.value) {
+      console.warn('地图实例未创建，无法获取边界');
+      return;
+    }
+    
+    // 获取当前地图视野范围
+    const bounds = map.value.getBounds();
+    if (!bounds) {
+      console.warn('无法获取地图边界，可能地图尚未完全初始化');
+      // 使用默认范围
+      loadHouseList({});
+      return;
+    }
+    
+    const sw = bounds.getSouthWest();
+    const ne = bounds.getNorthEast();
+    
+    // 根据视野范围获取房源
+    loadHouseList({
+      swLat: sw.lat,
+      swLng: sw.lng,
+      neLat: ne.lat,
+      neLng: ne.lng
+    });
+  } catch (error) {
+    console.error('地图视野变化处理失败:', error);
+    // 出错时使用空边界加载数据
+    loadHouseList({});
+  }
 }
 
 // 加载房源列表
@@ -199,38 +195,85 @@ const loadHouseList = async (bounds) => {
 
 // 更新地图标记点
 const updateMarkers = () => {
-  // 清除现有标记点
-  markers.value.forEach(marker => {
-    map.value.removeOverlay(marker)
-  })
-  markers.value = []
-
-  // 添加新的标记点
-  houseList.value.forEach(house => {
-    if (house.latitude && house.longitude) {
-      const point = new BMap.Point(house.longitude, house.latitude)
-      const marker = new BMap.Marker(point)
-      
-      // 创建信息窗口
-      const infoWindow = new BMap.InfoWindow(`
-        <div class="map-info-window">
-          <h4>${house.title}</h4>
-          <p>${house.roomCount}室${house.hallCount}厅 | ${house.area}㎡</p>
-          <p class="price">¥${house.price}/月</p>
-        </div>
-      `)
-      
-      // 添加标记点点击事件
-      marker.addEventListener('click', () => {
-        map.value.openInfoWindow(infoWindow, point)
-        activeHouseId.value = house.id
-      })
-      
-      map.value.addOverlay(marker)
-      markers.value.push(marker)
+  try {
+    // 确保地图实例已创建
+    if (!map.value) {
+      console.error('地图实例未创建');
+      return;
     }
-  })
-}
+    
+    // 清除现有标记点
+    map.value.clearOverlays();
+    markers.value = [];
+
+    // 如果没有房源数据，直接返回
+    if (!houseList.value || houseList.value.length === 0) {
+      return;
+    }
+
+    // 创建边界对象，用于自动调整地图视野
+    const bounds = new BMap.Bounds();
+    
+    // 添加新的标记点
+    houseList.value.forEach(house => {
+      if (house.latitude && house.longitude) {
+        try {
+          const point = new BMap.Point(parseFloat(house.longitude), parseFloat(house.latitude));
+          
+          // 扩展地图边界
+          bounds.extend(point);
+          
+          // 创建标记点
+          const marker = new BMap.Marker(point, {
+            enableMassClear: true,
+            enableClicking: true,
+            raiseOnDrag: true
+          });
+          
+          // 创建信息窗口内容
+          const infoWindowContent = `
+            <div class="map-info-window">
+              <h4>${house.title || '未命名房源'}</h4>
+              <p>${house.roomCount || 0}室${house.hallCount || 0}厅 | ${house.area || 0}㎡</p>
+              <p class="price">¥${house.price || 0}/月</p>
+            </div>
+          `;
+          
+          // 创建信息窗口
+          const infoWindow = new BMap.InfoWindow(infoWindowContent, {
+            width: 220,
+            height: 120,
+            enableMessage: false,
+            title: house.title
+          });
+          
+          // 添加标记点点击事件
+          marker.addEventListener('click', () => {
+            map.value.openInfoWindow(infoWindow, point);
+            activeHouseId.value = house.id;
+          });
+          
+          // 将标记点添加到地图
+          map.value.addOverlay(marker);
+          markers.value.push(marker);
+        } catch (err) {
+          console.error(`处理房源 ${house.id} 标记点时出错:`, err);
+        }
+      }
+    });
+    
+    // 如果有标记点，自动调整地图视野以包含所有标记点
+    if (markers.value.length > 0 && !bounds.isEmpty()) {
+      try {
+        map.value.setViewport(bounds);
+      } catch (e) {
+        console.error('设置地图视野失败:', e);
+      }
+    }
+  } catch (error) {
+    console.error('更新标记点失败:', error);
+  }
+};
 
 // 处理房源点击
 const handleHouseClick = (house) => {
@@ -311,27 +354,57 @@ const getFirstImage = (images) => {
 }
 
 onMounted(() => {
-  // 检查百度地图API是否已加载，如果已加载则立即初始化
-  if (window.BMap) {
-    initMap();
-    handleMapChange();
-  } else {
-    // 定义回调函数，等待API加载完成
-    const checkBMap = setInterval(() => {
-      if (window.BMap) {
-        clearInterval(checkBMap);
-        initMap();
-        handleMapChange();
-      }
-    }, 100);
-    
-    // 设置超时，防止无限等待
+  // 确保页面完全加载后再初始化地图
+  window.addEventListener('load', () => {
     setTimeout(() => {
-      clearInterval(checkBMap);
-      if (!window.BMap) {
-        ElMessage.error('百度地图加载失败，请刷新页面重试');
+      const mapContainer = document.getElementById('map-house');
+      if (!mapContainer) {
+        console.error('地图容器不存在');
+        ElMessage.error('地图容器不存在，请刷新页面重试');
+        return;
       }
-    }, 10000);
+
+      try {
+        console.log('开始初始化地图...');
+        // 检查百度地图API是否已加载
+        if (typeof BMap === 'undefined') {
+          throw new Error('百度地图API未加载');
+        }
+
+        // 创建地图实例
+        map.value = new BMap.Map(mapContainer);
+        
+        // 创建点坐标
+        const point = new BMap.Point(116.404, 39.915); // 默认北京市中心
+        
+        // 初始化地图，设置中心点坐标和地图级别
+        map.value.centerAndZoom(point, 12);
+        
+        // 开启鼠标滚轮缩放
+        map.value.enableScrollWheelZoom(true);
+        
+        // 添加地图控件
+        map.value.addControl(new BMap.NavigationControl());
+        map.value.addControl(new BMap.ScaleControl());
+        
+        // 添加地图事件监听
+        map.value.addEventListener('dragend', handleMapChange);
+        map.value.addEventListener('zoomend', handleMapChange);
+        
+        console.log('地图初始化成功');
+        
+        // 加载初始数据
+        handleMapChange();
+      } catch (error) {
+        console.error('地图初始化失败:', error);
+        ElMessage.error('地图初始化失败: ' + error.message);
+      }
+    }, 1000); // 延迟1秒，确保DOM已渲染
+  });
+  
+  // 如果页面已加载完成，直接初始化
+  if (document.readyState === 'complete') {
+    window.dispatchEvent(new Event('load'));
   }
 })
 

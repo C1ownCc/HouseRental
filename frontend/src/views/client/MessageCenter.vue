@@ -225,7 +225,8 @@ const getMessageTypeTag = (type) => {
   const types = {
     1: 'info',    // 系统消息
     2: 'warning', // 预约消息
-    3: 'success'  // 收藏消息
+    3: 'success', // 收藏消息
+    4: 'danger'   // 合同消息
   }
   return types[type] || 'info'
 }
@@ -235,7 +236,8 @@ const getMessageTypeText = (type) => {
   const texts = {
     1: '系统消息',
     2: '预约消息',
-    3: '收藏消息'
+    3: '收藏消息',
+    4: '合同消息'
   }
   return texts[type] || '未知类型'
 }

@@ -132,6 +132,21 @@
           <p>本合同自双方签字或盖章之日起生效。</p>
         </div>
       </div>
+
+      <!-- 终止合同对话框 -->
+<el-dialog v-model="terminateDialogVisible" title="终止合同" width="30%">
+  <el-form :model="terminateForm" :rules="terminateRules" ref="terminateFormRef" label-width="100px">
+    <el-form-item label="终止原因" prop="remark">
+      <el-input v-model="terminateForm.remark" type="textarea" rows="4" placeholder="请输入终止合同的原因" />
+    </el-form-item>
+  </el-form>
+  <template #footer>
+    <span class="dialog-footer">
+      <el-button @click="terminateDialogVisible = false">取消</el-button>
+      <el-button type="danger" @click="confirmTerminate">确认终止</el-button>
+    </span>
+  </template>
+</el-dialog> 
       
       <!-- 签署确认区域 -->
       <div class="sign-section" v-if="contract.status === 1">
@@ -454,17 +469,3 @@ h2 {
 }
 </style>
 
-<!-- 终止合同对话框 -->
-<el-dialog v-model="terminateDialogVisible" title="终止合同" width="30%">
-  <el-form :model="terminateForm" :rules="terminateRules" ref="terminateFormRef" label-width="100px">
-    <el-form-item label="终止原因" prop="remark">
-      <el-input v-model="terminateForm.remark" type="textarea" rows="4" placeholder="请输入终止合同的原因" />
-    </el-form-item>
-  </el-form>
-  <template #footer>
-    <span class="dialog-footer">
-      <el-button @click="terminateDialogVisible = false">取消</el-button>
-      <el-button type="danger" @click="confirmTerminate">确认终止</el-button>
-    </span>
-  </template>
-</el-dialog> 

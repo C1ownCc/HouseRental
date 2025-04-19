@@ -4,11 +4,38 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a56d2ff2-1c89-4612-8151-1565845bc81e" name="更改" comment="" />
+    <list default="true" id="a56d2ff2-1c89-4612-8151-1565845bc81e" name="更改" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/V1.1__modify_favorite_unique_constraint.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/V1.2__create_message_table.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/create_booking.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/create_database.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/create_favorite.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/create_house.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/create_message.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/create_system_config.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/create_user.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/insert_test_data.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/migration/V20240106__add_message_status.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/migration/V20240106__add_message_time_fields.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/migration/V20240320__add_house_location_fields.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/migration/V20240321__update_house_location_data.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/migration/test.SQL" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/schema.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/views/client/ContractDetail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/client/ContractDetail.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/views/client/MapHouse.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/client/MapHouse.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/views/client/MessageCenter.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/client/MessageCenter.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/views/client/PaymentList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/client/PaymentList.vue" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -32,34 +59,36 @@
     <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Spring Boot.HouseRentalApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.SpringbootSchemaApplication.executor&quot;: &quot;Run&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/chenjm/Desktop/coder/project/HouseRental/backend&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.HouseRentalApplication.executor": "Run",
+    "Spring Boot.SpringbootSchemaApplication.executor": "Run",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/chenjm/Desktop/coder/project/HouseRental/backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "模块",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "MavenSettings",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -118,7 +147,8 @@
       <workItem from="1743499376998" duration="81000" />
       <workItem from="1743557081586" duration="1227000" />
       <workItem from="1743570199134" duration="4044000" />
-      <workItem from="1744593715189" duration="13303000" />
+      <workItem from="1744593715189" duration="18374000" />
+      <workItem from="1744707243710" duration="712000" />
     </task>
     <servers />
   </component>
